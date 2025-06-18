@@ -782,6 +782,7 @@ bool rp2040_sdio_init(sd_card_t *sd_card_p, float clk_div) {
 
     // Load PIO programs
     pio_clear_instruction_memory(SDIO_PIO);
+    pio_set_gpio_base(SDIO_PIO, 16);
 
     // Command & clock state machine
     STATE.pio_cmd_clk_offset = pio_add_program(SDIO_PIO, &sdio_cmd_clk_program);
@@ -790,6 +791,8 @@ bool rp2040_sdio_init(sd_card_t *sd_card_p, float clk_div) {
     sm_config_set_in_pins(&cfg, SDIO_CMD);
     sm_config_set_set_pins(&cfg, SDIO_CMD, 1);
     sm_config_set_jmp_pin(&cfg, SDIO_CMD);
+    // When using SDK2.0.0: sm_config_set_jmp_pin(&cfg, SDIO_CMD - 16); 
+
     sm_config_set_sideset_pins(&cfg, SDIO_CLK);
     sm_config_set_out_shift(&cfg, false, true, 32);
     sm_config_set_in_shift(&cfg, false, true, 32);

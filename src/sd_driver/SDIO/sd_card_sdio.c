@@ -647,7 +647,6 @@ void sd_sdio_ctor(sd_card_t *sd_card_p) {
     myASSERT(!sd_card_p->sdio_if_p->D2_gpio);
     myASSERT(!sd_card_p->sdio_if_p->D3_gpio);
 
-    sd_card_p->sdio_if_p->CLK_gpio = (sd_card_p->sdio_if_p->D0_gpio + SDIO_CLK_PIN_D0_OFFSET) % 32;
     sd_card_p->sdio_if_p->D1_gpio = sd_card_p->sdio_if_p->D0_gpio + 1;
     sd_card_p->sdio_if_p->D2_gpio = sd_card_p->sdio_if_p->D0_gpio + 2;
     sd_card_p->sdio_if_p->D3_gpio = sd_card_p->sdio_if_p->D0_gpio + 3;
