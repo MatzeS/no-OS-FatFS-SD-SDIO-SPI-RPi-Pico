@@ -782,7 +782,9 @@ bool rp2040_sdio_init(sd_card_t *sd_card_p, float clk_div) {
 
     // Load PIO programs
     pio_clear_instruction_memory(SDIO_PIO);
-    pio_set_gpio_base(SDIO_PIO, 16);
+    if (SDIO_CLK >= 32) {
+        pio_set_gpio_base(SDIO_PIO, 16);
+    }
 
     // Command & clock state machine
     STATE.pio_cmd_clk_offset = pio_add_program(SDIO_PIO, &sdio_cmd_clk_program);
